@@ -1,53 +1,22 @@
-body {
-	color: #666;
+.fa-star{
+	margin: 0.5em;
+	font-size: 24px;
 }
-time, strong, small {
-	color: #888;
-}
-strong {
-	margin-left: 10px;
-}
-h2, h4 {
-	color: #333;
-}
-h5 {
-	font-weight: 300;
-	font-size: 20px;
-}
-li {
-	padding: 25px 0;
-}
-section {
-	padding: 20px 0;
-}
-
-.border-bottom {
-	border-bottom: 1px solid #eee;
-}
-
-section.home {
-	padding-top: 200px;
-	text-align: center;
-}
-section.home button {
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0;
-}
-
-section.stats {
-	text-align: center;
-}
-section.stats span {
+span{
 	display: inline-block;
-	width: 80px;
+	margin:0.5em;
+    text-align: center;
+    background-color: #ccc;
+    width: 24px;
+    border-radius: 50%;
+    cursor: pointer;
 }
-section.stats h2 {
-	margin: 0;
+.selected{
+	background: #eee;
+	color: #ddd;
+	cursor: not-allowed;
 }
-
-section.orgs img {
-	border-radius: 3px;
-	margin: 5px;
-	width: 42px;
-	height: 42px;
+.used{
+	background-color: #aaddaa;
+	color: #99bb99;
 }

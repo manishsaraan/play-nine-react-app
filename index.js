@@ -4,13 +4,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/styles.css';
 import axios from 'axios';
 class Start extends React.Component{
+  numberOfStars = 5;
+  stars = [];
+  for(i=0,i<numberOfStars,i++){
+     stars.push(<i key={i} className="fa fa-star"></i>);
+  }
    render(){
       return(
             <div className="col-5">
-              <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i>
+             {starts}
             </div>
         );
    }
@@ -47,11 +49,23 @@ class Game extends React.Component{
                   <Button/>
                   <Answer/>
                 </div>
+                <hr/>
+                <Numbers/>
               </div>
         );
     }
 }
-
+const Numbers = (props) => {
+   return(
+        <div className="card text-center">
+           <div>
+              <span>1</span>
+              <span className="selected">2</span>
+              <span className="used">3</span>
+           </div>
+        </div>
+    );
+}
 class App extends React.Component{
    render(){
      return(
