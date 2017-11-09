@@ -3,19 +3,19 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/styles.css';
 import axios from 'axios';
-class Start extends React.Component{
-  numberOfStars = 5;
-  stars = [];
-  for(i=0,i<numberOfStars,i++){
-     stars.push(<i key={i} className="fa fa-star"></i>);
-  }
-   render(){
-      return(
+const Stars = (props) => {
+  const  numberOfStars = 1 + Math.floor(Math.random() * 9);
+  // let stars = [];
+  // for(let i=0;i<numberOfStars;i++){
+  //    stars.push(<i key={i} className="fa fa-star"></i>);
+  // }
+       return(
             <div className="col-5">
-             {starts}
+             {_.range(numberOfStars).map(i => 
+                  <i key={i} className="fa fa-star"></i>
+             )}
             </div>
         );
-   }
 }
 
 class Button extends React.Component{
@@ -45,7 +45,7 @@ class Game extends React.Component{
                 <h3>Play Nine</h3>
                 <hr/>
                 <div  className="row">
-                  <Start/>
+                  <Stars/>
                   <Button/>
                   <Answer/>
                 </div>
@@ -56,12 +56,14 @@ class Game extends React.Component{
     }
 }
 const Numbers = (props) => {
+   const arrayOfNumbers = _.range(1, 10);
+   
    return(
         <div className="card text-center">
            <div>
-              <span>1</span>
-              <span className="selected">2</span>
-              <span className="used">3</span>
+              {arrayOfNumbers.map((number, i) => 
+                  <span key={i}>{number}</span>
+              )}
            </div>
         </div>
     );
