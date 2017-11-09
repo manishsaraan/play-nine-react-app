@@ -32,49 +32,48 @@ class Answer extends React.Component{
    render(){
       return(
             <div className="col-5">
-              ....
+              <span>5</span>
+              <span>6</span>
             </div>
         );
    }
 }
 
-class Game extends React.Component{
-    render(){
-       return(
-              <div className="container">
-                <h3>Play Nine</h3>
-                <hr/>
-                <div  className="row">
-                  <Stars/>
-                  <Button/>
-                  <Answer/>
-                </div>
-                <hr/>
-                <Numbers/>
-              </div>
-        );
-    }
-}
 const Numbers = (props) => {
-   const arrayOfNumbers = _.range(1, 10);
+  // const arrayOfNumbers = _.range(1, 10);
    
    return(
         <div className="card text-center">
            <div>
-              {arrayOfNumbers.map((number, i) => 
+              {Numbers.list.map((number, i) => 
                   <span key={i}>{number}</span>
               )}
            </div>
         </div>
     );
 }
+
+Numbers.list  =  _.range(1, 10);
+
 class App extends React.Component{
+state = {
+   selectedNumbers : [2,4]
+}
    render(){
      return(
-             <div>
-               <Game/>
+             <div className="container">
+             <h3>Play Nine</h3>
+             <hr/>
+             <div className="row">
+                <Stars/>
+                <Button/>
+                <Answer selectedNumbers = {this.state.selectedNumbers}/>
+             </div>
+              <br/>
+               <Numbers/>
              </div>
        );
    }
 }
+
 ReactDOM.render(<App/>,document.getElementById('container'))
