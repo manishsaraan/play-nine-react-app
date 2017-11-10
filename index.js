@@ -19,9 +19,30 @@ const Stars = (props) => {
 }
 
 const Button  = (props) => {
+     let button;
+     switch(props.answerToCorrect){
+       case true:
+       button =  
+          <button className="btn btn-success">
+            <i className="fa fa-check"></i>
+          </button>          
+       break;
+       case false:
+       button =  
+        <button className="btn btn-danger">
+            <i className="fa fa-times"></i>
+          </button>
+       break;
+       default:
+       button =  
+       <button 
+       onClick = {props.checkAnswer}
+       disabled={ props.selectedNumbers.length === 0 } className="btn">=</button>
+       break;
+     }
       return(
             <div className="col-2">
-              <button  disabled={ props.selectedNumbers.length === 0 } className="btn">=</button>
+              {button}
             </div>
         );  
 }
@@ -59,7 +80,8 @@ Numbers.list  =  _.range(1, 10);
 class App extends React.Component{
 state = {
    selectedNumbers : [],
-   randomNumberOfStars: 1 + Math.floor(Math.random() * 9)
+   randomNumberOfStars: 1 + Math.floor(Math.random() * 9),
+   answerToCorrect : null
 }
 selectNumber = (clicked) => {
     if(this.state.selectedNumbers.indexOf(clicked) !== -1) {return;}
@@ -68,6 +90,11 @@ selectNumber = (clicked) => {
 unselectNumber = (clicked) => {
     this.setState({selectedNumbers : this.state.selectedNumbers.
                                      filter(number => number !== clicked)});
+};
+checkAnswer = () =>{
+ this.setState({
+  answerToCorrect : this.state.selectedNumbers.reduce((acc, n) => acc + n, 0)
+ })
 }
    render(){
      const { selectedNumbers, randomNumberOfStars } = this.state;
@@ -77,7 +104,10 @@ unselectNumber = (clicked) => {
              <hr/>
              <div className="row">
                 <Stars numberOfStars = {randomNumberOfStars}/>
-                <Button selectedNumbers = {selectedNumbers}/>
+                <Button selectedNumbers = {selectedNumbers}
+                        checkAnswer = {this.checkAnswer}
+                        answerToCorrect = {this.state.answerToCorrect}
+                   />
                 <Answer selectedNumbers = {selectedNumbers}
                         unselectNumber = {this.unselectNumber}/>
              </div>
@@ -88,5 +118,6 @@ unselectNumber = (clicked) => {
        );
    }
 }
- 
+
+
 ReactDOM.render(<App/>,document.getElementById('container'))
