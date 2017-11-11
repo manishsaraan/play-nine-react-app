@@ -41,8 +41,14 @@ const Button  = (props) => {
        break;
      }
       return(
-            <div className="col-2">
+            <div className="col-2 text-center">
               {button}
+              <br/><br/>
+              <button className="btn btn-warning btn-sm" 
+                 disabled = {props.redraws === 0}
+                 onClick={props.redraw}>
+                <i className="fa fa-refresh"></i>{props.redraws}
+              </button>
             </div>
         );  
 }
@@ -88,7 +94,8 @@ state = {
    selectedNumbers : [],
    randomNumberOfStars: 1 + Math.floor(Math.random() * 9),
    answerToCorrect : null,
-   usedNumbers : []
+   usedNumbers : [],
+   redraws : 5
 }
 selectNumber = (clicked) => {
     if(this.state.selectedNumbers.indexOf(clicked) !== -1) {return;}
@@ -112,8 +119,23 @@ acceptAnswer = () => {
      randomNumberOfStars: 1 + Math.floor(Math.random() * 9)
   })
 }
+redraw = () =>{
+  //if redraws is zero do nothing
+  if(this.state.redraws === 0 ) { return; }
+  this.setState({
+     selectedNumbers : [],
+     answerToCorrect : null,
+     randomNumberOfStars: 1 + Math.floor(Math.random() * 9),
+     redraws : this.state.redraws - 1
+  })
+}
    render(){
-     const { selectedNumbers, randomNumberOfStars, usedNumbers} = this.state;
+     const {
+     selectedNumbers,
+     randomNumberOfStars,
+     usedNumbers,
+     redraws
+     } = this.state;
      return(
              <div className="container">
              <h3>Play Nine</h3>
@@ -124,6 +146,8 @@ acceptAnswer = () => {
                         checkAnswer = {this.checkAnswer}
                         answerToCorrect = {this.state.answerToCorrect}
                         acceptAnswer = {this.acceptAnswer }
+                        redraw = {this.redraw}
+                        redraws = {redraws}
                    />
                 <Answer selectedNumbers = {selectedNumbers}
                         unselectNumber = {this.unselectNumber}/>
