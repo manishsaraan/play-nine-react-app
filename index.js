@@ -88,14 +88,24 @@ const Numbers = (props) => {
 }
 
 Numbers.list  =  _.range(1, 10);
-
+const DoneFrame = (props) =>{
+   return(
+        <div className="text-center">
+           <h2>{props.doneStatus}</h2>
+        </div>
+    )
+}
 class App extends React.Component{
+static randomNumberOfStars = () => {
+      return 1 + Math.floor(Math.random() * 9);
+}
 state = {
    selectedNumbers : [],
-   randomNumberOfStars: 1 + Math.floor(Math.random() * 9),
+   randomNumberOfStars: App.randomNumberOfStars(),
    answerToCorrect : null,
    usedNumbers : [],
-   redraws : 5
+   redraws : 5,
+   doneStatus : null
 }
 selectNumber = (clicked) => {
     if(this.state.selectedNumbers.indexOf(clicked) !== -1) {return;}
@@ -116,7 +126,7 @@ acceptAnswer = () => {
      usedNumbers : this.state.usedNumbers.concat(this.state.selectedNumbers),
      selectedNumbers : [],
      answerToCorrect : null,
-     randomNumberOfStars: 1 + Math.floor(Math.random() * 9)
+     randomNumberOfStars: App.randomNumberOfStars()
   })
 }
 redraw = () =>{
@@ -125,7 +135,7 @@ redraw = () =>{
   this.setState({
      selectedNumbers : [],
      answerToCorrect : null,
-     randomNumberOfStars: 1 + Math.floor(Math.random() * 9),
+     randomNumberOfStars:App.randomNumberOfStars(),
      redraws : this.state.redraws - 1
   })
 }
@@ -134,7 +144,8 @@ redraw = () =>{
      selectedNumbers,
      randomNumberOfStars,
      usedNumbers,
-     redraws
+     redraws,
+     doneStatus
      } = this.state;
      return(
              <div className="container">
@@ -153,14 +164,19 @@ redraw = () =>{
                         unselectNumber = {this.unselectNumber}/>
              </div>
               <br/>
-               <Numbers selectedNumbers = {selectedNumbers}
+              {doneStatus ? 
+                <DoneFrame doneStatus = {doneStatus}/> :
+                <Numbers selectedNumbers = {selectedNumbers}
                          selectNumber = {this.selectNumber}
                         usedNumbers = {usedNumbers}
                          />
+              }
+               
+              
+               
              </div>
        );
    }
 }
-
 
 ReactDOM.render(<App/>,document.getElementById('container'))
